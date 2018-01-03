@@ -2,16 +2,19 @@ package lepetinez.crashgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.annotation.MainThread;
+import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 /**
- * Created by Pc on 10.12.2017.
+ * Created by lepetinez on 10.12.2017.
  */
 
 public class GameScreen extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread gameThread;
+
+    private Player player;
+    private Point playerPoint;
 
     public GameScreen(Context context) {
         super(context);
@@ -39,18 +42,24 @@ public class GameScreen extends SurfaceView implements SurfaceHolder.Callback {
         boolean retry = true;
         while (true) {
             try {
-                thread.setRunning(false);
-                thread.join();
+                gameThread.setRunning(false);
+                gameThread.join();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             retry = false;
         }
     }
+
+    public void update(){
+        player.update(playerPoint);
+
+    }
     @Override
     public void draw(Canvas canvas) {
 
         super.draw(canvas);
+        player.draw(canvas);
     }
 }
 
