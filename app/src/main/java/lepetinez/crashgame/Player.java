@@ -13,7 +13,7 @@ public class Player implements GameObject {
     private Rect player;
     private int playerColor;
 
-    public Player(Rect player, int playerColor) {
+    Player(Rect player, int playerColor) {
         this.player = player;
         this.playerColor = playerColor;
     }
@@ -31,7 +31,7 @@ public class Player implements GameObject {
 
     }
 
-    public void update(Point point) {
+    void update(Point point) {
         this.player.set(point.x - player.width() / 2, point.y - player.height() / 2, point.x + player.width() / 2, point.y + player.height() / 2);
 
     }

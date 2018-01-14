@@ -2,7 +2,10 @@ package lepetinez.crashgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -21,6 +24,8 @@ public class GameScreen extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
 
         gameThread = new MainThread(getHolder(), this);
+        player = new Player(new Rect(100,100,200,200),Color.rgb(255,0,0));
+        playerPoint = new Point(150,150);
     }
 
     @Override
@@ -51,14 +56,26 @@ public class GameScreen extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void update(){
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                playerPoint.set((int)event.getX(),(int)event.getY());
+
+        }
+        return true;
+    }
+
+    public void update() {
         player.update(playerPoint);
 
     }
+
     @Override
     public void draw(Canvas canvas) {
-
         super.draw(canvas);
+        canvas.drawColor(Color.WHITE);
         player.draw(canvas);
     }
 }
