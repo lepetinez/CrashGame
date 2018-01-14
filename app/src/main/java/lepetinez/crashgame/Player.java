@@ -10,6 +10,10 @@ import android.graphics.Rect;
  */
 
 public class Player implements GameObject {
+    public Rect getPlayer() {
+        return player;
+    }
+
     private Rect player;
     private int playerColor;
 

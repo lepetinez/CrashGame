@@ -8,20 +8,19 @@ import android.view.SurfaceHolder;
  */
 
 public class MainThread extends Thread{
-    public static final int MAX_FPS = 30;
+    private static final int MAX_FPS = 30;
     private double averageFPS;
     private GameScreen gameScreen;
-    private SurfaceHolder surfaceHolder;
+    private final SurfaceHolder surfaceHolder;
     private boolean running ;
-    public static Canvas canvas ;
 
-    public MainThread(SurfaceHolder surfaceHolder,GameScreen gameScreen){
+    MainThread(SurfaceHolder surfaceHolder, GameScreen gameScreen){
         super();
         this.surfaceHolder = surfaceHolder;
         this.gameScreen = gameScreen;
 
     }
-    public void setRunning(boolean running){
+    void setRunning(boolean running){
         this.running = running;
     }
 
@@ -35,7 +34,7 @@ public class MainThread extends Thread{
 
         while(running){
             startTime = System.nanoTime();
-            canvas = null;
+            Canvas canvas = null;
 
             try{
                 canvas = this.surfaceHolder.lockCanvas();
@@ -46,7 +45,7 @@ public class MainThread extends Thread{
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
-                if(canvas!=null){
+                if(canvas !=null){
                     try{
                         surfaceHolder.unlockCanvasAndPost(canvas);
 
